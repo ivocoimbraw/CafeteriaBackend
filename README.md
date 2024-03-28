@@ -1,7 +1,3 @@
-## Welcome to [Nombre del Proyecto]!
-
-Este proyecto sigue una estructura de ramas específica para el desarrollo y la implementación de nuevas funcionalidades o corrección de fallos. A continuación, se detallan las instrucciones para contribuir de manera efectiva al proyecto.
-
 ### Ramas del Proyecto
 
 - **main**: Esta rama contiene la versión estable y lista para producción del proyecto. No se debe modificar directamente.
@@ -40,7 +36,7 @@ Para contribuir al proyecto, sigue estos pasos:
 
 6. Crea una solicitud de extracción (pull request) en GitHub para fusionar tus cambios en la rama develop. Describe detalladamente los cambios y espera la revisión del equipo.
 
-Siguiendo estas instrucciones, contribuirás de manera ordenada y eficiente al desarrollo del proyecto, manteniendo la estabilidad de las ramas principales (main y develop) y facilitando la integración de nuevas funcionalidades y correcciones de errores. ¡Gracias por tu contribución! 😊🚀
+Siguiendo estas instrucciones, contribuirás de manera ordenada y eficiente al desarrollo del proyecto, manteniendo la estabilidad de las ramas principales (main y develop) y facilitando la integración de nuevas funcionalidades y correcciones de errores. ¡Gracias por tu contribución! 😊🚀 Saleczzzaurio zzzz atte. ChatGPT.
 
 ### Resumen
 
@@ -56,6 +52,7 @@ Siguiendo estas instrucciones, contribuirás de manera ordenada y eficiente al d
 - Mantén tu rama actualizada con las últimas mejoras del proyecto.
 
 ## Contribuciones
+- Traer los nuevos cambios de develop a tu rama antes de subir tus cambios a tu propia rama
 
 Cuando termines de hacer tu aporte crea un pull request desde tu rama hacia develop.
 
