@@ -1,0 +1,29 @@
+package com.si.apirest.model.entity;
+import java.util.List;
+import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Departament {
+    @OneToMany(mappedBy = "departament")
+    private List<Category> category;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private int id;
+    private String nombre;
+
+}
