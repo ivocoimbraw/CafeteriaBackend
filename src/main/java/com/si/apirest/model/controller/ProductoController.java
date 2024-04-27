@@ -1,5 +1,8 @@
 package com.si.apirest.model.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,13 +46,13 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public void findProducto (@PathVariable int id){
-        productoService.findProducto(id);
+    public Optional<Producto> findProducto (@PathVariable int id){
+        return productoService.findProducto(id);
     }
 
-    @GetMapping
-    public void getAllProducto(){
-        productoService.getAllProducto();
+    @GetMapping("/all")
+    public List<Producto> getAllProducto(){
+        return productoService.getAllProducto();
     }   
 
 
