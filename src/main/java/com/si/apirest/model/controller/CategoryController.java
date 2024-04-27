@@ -17,6 +17,7 @@ import com.si.apirest.model.entity.Category;
 import com.si.apirest.model.exceptions.OkResponse;
 import com.si.apirest.model.service.CategoryService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,7 +29,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
      @PostMapping("/save")
-    public ResponseEntity<OkResponse> crearCategory(@RequestBody Category category) {
+    public ResponseEntity<OkResponse> crearCategory(@RequestBody @Valid Category category) {
         categoryService.createCategory(category);
         return ResponseEntity.ok(OkResponse.builder()
         .message("Creación de categoria correcta.")

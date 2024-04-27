@@ -1,6 +1,6 @@
 package com.si.apirest.model.entity;
 import jakarta.persistence.ManyToOne;
-
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Category {
+    
     @ManyToOne
     private Departament departament;
 
@@ -23,5 +24,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
+    @NotBlank(message = "Atributo nombre requerido.")
     private String nombre;
 }

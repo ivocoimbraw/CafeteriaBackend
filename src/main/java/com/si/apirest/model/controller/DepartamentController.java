@@ -17,6 +17,7 @@ import com.si.apirest.model.entity.Departament;
 import com.si.apirest.model.exceptions.OkResponse;
 import com.si.apirest.model.service.DepartmentService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,7 +29,7 @@ public class DepartamentController {
     private final DepartmentService departamentService;
     
     @PostMapping("/save")
-    public ResponseEntity<OkResponse> crearDepartament(@RequestBody Departament departament) {
+    public ResponseEntity<OkResponse> crearDepartament(@RequestBody @Valid Departament departament) {
         departamentService.createDepartament(departament);
         return ResponseEntity.ok(OkResponse.builder()
         .message("Creación de departamento correcta.")

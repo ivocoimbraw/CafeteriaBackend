@@ -1,7 +1,7 @@
 package com.si.apirest.model.entity;
 import java.util.List;
 import jakarta.persistence.OneToMany;
-
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,8 +22,9 @@ public class Departament {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
+
+    @NotBlank(message = "Atributo nombre requerido")
     private String nombre;
 
 }
