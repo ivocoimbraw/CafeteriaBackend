@@ -18,17 +18,21 @@ import com.si.apirest.model.entity.Departament;
 import com.si.apirest.model.exceptions.OkResponse;
 import com.si.apirest.model.service.DepartmentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/departament")
+@Tag(name = "Departamento")
 public class DepartamentController {
     
     @Autowired
     private final DepartmentService departamentService;
     
+    @Operation(summary="guarda un departamento")
     @PostMapping("/save")
     public ResponseEntity<OkResponse> crearDepartament(@RequestBody @Valid Departament departament) {
         departamentService.createDepartament(departament);
