@@ -38,4 +38,15 @@ public class PersonService {
         return personRepository.findAll();
     }
 
+    public void unableUser(int id) {
+        Optional<Person> person= personRepository.findById(id);
+
+        person.ifPresent( user -> {
+            user.setEnabled(false);
+            System.out.println("Supuestamente está deshabilitado: \n" + user.toString());
+            personRepository.save(user);
+            }
+        );
+    }
+
 }

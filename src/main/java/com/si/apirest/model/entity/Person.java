@@ -44,6 +44,8 @@ public class Person implements UserDetails {
 
     private Role role;
 
+    private boolean enabled;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -72,6 +74,6 @@ public class Person implements UserDetails {
     }
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
