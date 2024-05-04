@@ -1,5 +1,8 @@
 package com.si.apirest.model.controller;
 
+
+import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,11 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public void deleteDepartament(@PathVariable int id) {
         categoryService.deleteCategory(id);
+    }
+
+    @GetMapping
+    public List<Category> getAllCategory() {
+        return categoryService.getAllCategory();
     }
 
 }
