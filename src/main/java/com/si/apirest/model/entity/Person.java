@@ -42,6 +42,8 @@ public class Person implements UserDetails {
 
     private String email;
 
+    private String direccion;
+
     private Role role;
 
     private boolean enabled;
