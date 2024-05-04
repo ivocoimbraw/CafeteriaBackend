@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.entity.Person;
-import com.si.apirest.model.enums.Role;
+import com.si.apirest.model.entity.RoleEntity;
 import com.si.apirest.model.exceptions.PersonExistException;
 import com.si.apirest.model.repository.PersonRepository;
 import com.si.apirest.security.jwt.JwtService;
@@ -44,7 +44,8 @@ public class AuthService {
         .contraseña(passwordEncoder.encode(request.getPassword()))
         .nombre(request.getNombre())
         .email(request.getEmail())
-        .role(Role.USER)
+        .role(RoleEntity.builder().id(2).build())
+        .enabled(true)
         .build();
 
         personRepository.save(user);

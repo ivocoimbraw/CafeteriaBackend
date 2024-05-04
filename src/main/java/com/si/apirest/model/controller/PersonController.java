@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.si.apirest.model.dto.PersonDTO;
-import com.si.apirest.model.entity.Person;
 import com.si.apirest.model.service.PersonService;
 
 import lombok.RequiredArgsConstructor;
