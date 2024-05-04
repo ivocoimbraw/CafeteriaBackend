@@ -1,6 +1,7 @@
 package com.si.apirest.model.service;
 
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -44,8 +45,13 @@ public class PersonService {
         return personRepository.findById(id);
     }
 
-    public List<Person> getAllPerson() {
-        return personRepository.findAll();
+    public List<PersonDTO> getAllPerson() {
+        List<Person> personList = personRepository.findAll(); 
+        List<PersonDTO> personDTOs = new ArrayList<>();
+        for (Person userPerson : personList) {
+            personDTOs.add(modelMapper.map(userPerson, PersonDTO.class));
+        }
+        return personDTOs;
     }
 
     public void unableUser(int id) {
