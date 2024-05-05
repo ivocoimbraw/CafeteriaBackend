@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.si.apirest.model.dto.BitacoraDTO;
 import com.si.apirest.model.entity.Bitacora;
 import com.si.apirest.model.service.BitacoraService;
 
@@ -21,12 +22,12 @@ public class BitacoraController {
     private final BitacoraService bitacoraService;
 
     @PostMapping
-    public Bitacora saveBitacora(@RequestBody Bitacora bitacoraEntity){
+    public Bitacora saveBitacora(@RequestBody BitacoraDTO bitacoraEntity){
         return bitacoraService.saveBitacora(bitacoraEntity);
     }
 
     @GetMapping("/get-all")
-    public List<Bitacora> getAllBitacora(){
+    public List<BitacoraDTO> getAllBitacora(){
         return bitacoraService.findAllBitacora();
     }
 

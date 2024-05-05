@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +36,6 @@ public class JwtService {
         claims.put("id", user.getId());
         claims.put("user", user.getNombre());
         claims.put("email", user.getEmail());
-        System.out.println("Inicié a las " + GregorianCalendar.getInstance().getTime());
         List<String> permisos = permissionService.userPermissionList(user);
         claims.put("Permisos", permisos);
         return getToken(claims,user);
