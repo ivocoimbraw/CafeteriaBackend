@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.si.apirest.model.dto.PersonDTO;
+import com.si.apirest.model.dto.PersonDTOupdate;
 import com.si.apirest.model.service.PersonService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,17 @@ public class PersonController {
     }
 
     @PutMapping("/update/{id}")
-    public void testing(PersonDTO person, int id) {
+    public void testing(PersonDTOupdate person, int id) {
         personService.updatePerson(person, id);
     }
 
     @PutMapping("/unable/{id}")
     public void unableUser(@PathVariable int id) {
+        personService.unableUser(id);
+    }
+
+    @PutMapping("/enable/{id}")
+    public void enableUser(@PathVariable int id) {
         personService.unableUser(id);
     }
 

@@ -6,30 +6,40 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.entity.Person;
+import com.si.apirest.model.service.PermissionService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.InvalidKeyException;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
-
+import java.util.List;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     private static final String SECRET_KEY = "RXMgbGEgY2xhdmUgZGVsIHByb3llY3RvIHRpZW5kYSAyMDIz";
-    
+    @Autowired
+    private final PermissionService permissionService;
+
     public String getToken(Person user) {
         Map<String, Object> claims  = new HashMap<>();
         claims.put("user", user.getNombre());
-        claims.put("user", user.getEmail());
-        return getToken(new HashMap<>(),user);
+        claims.put("email", user.getEmail());
+        System.out.println("Inicié a las " + GregorianCalendar.getInstance().getTime());
+        List<String> permisos = permissionService.userPermissionList(user);
+        claims.put("Permisos", permisos);
+        return getToken(claims,user);
     }
 
     private String getToken(Map<String, Object> extractClaims, Person user)

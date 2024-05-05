@@ -3,10 +3,7 @@ package com.si.apirest.model.dto;
 import lombok.Data;
 
 @Data
-public class PersonDTO {
-
-    private int id;
-
+public class PersonDTOupdate {
     private String nombre;
 
     private String usuario;
@@ -14,7 +11,4 @@ public class PersonDTO {
     private String email;
 
     private String direccion;
-
-    private boolean enabled;
-
 }

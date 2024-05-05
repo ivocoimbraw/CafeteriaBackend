@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.entity.PermissionEntity;
-import com.si.apirest.model.entity.RolePermissionEntity;
+import com.si.apirest.model.entity.Person;
 import com.si.apirest.model.repository.PermissionRepository;
 import com.si.apirest.model.repository.PersonRepository;
 
@@ -57,20 +57,18 @@ public class PermissionService {
     
     public List<String> userPermissionList(String username) {
         List<String> permissionList = new ArrayList<>();
-        List<PermissionEntity> permissionEntityList = permissionRepository.findAll();
 
         int idRol = personRepository.findByUsuario(username).get().getRole().getId();
+        permissionList=rolePermissionRepository.getPermissionsByRoleId(idRol);
 
-        List<RolePermissionEntity> rolePermissionEntityList = (List<RolePermissionEntity>) rolePermissionRepository.findByPermiso(idRol);
+        return permissionList;
+    }
 
-        for (RolePermissionEntity rolePermission : rolePermissionEntityList) {
-            PermissionEntity permission = permissionRepository.findById(rolePermission.getPermiso().getId()).orElse(null);
+    public List<String> userPermissionList(Person user) {
+        List<String> permissionList = new ArrayList<>();
 
-            if (permissionEntityList.contains(permission)) {
-                permissionList.add(permission.getNombre());
-            }
-
-        }
+        int idRol = user.getRole().getId();
+        permissionList=rolePermissionRepository.getPermissionsByRoleId(idRol);
 
         return permissionList;
     }

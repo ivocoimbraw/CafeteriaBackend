@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.dto.PersonDTO;
+import com.si.apirest.model.dto.PersonDTOupdate;
 import com.si.apirest.model.entity.Person;
 import com.si.apirest.model.repository.PersonRepository;
 
@@ -28,7 +29,7 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public void updatePerson(PersonDTO person, int id) {
+    public void updatePerson(PersonDTOupdate person, int id) {
         Optional<Person> optionalPerson = personRepository.findById(id);
         if (optionalPerson.isPresent()) {
             Person updatedUser = optionalPerson.get();
@@ -59,6 +60,16 @@ public class PersonService {
 
         person.ifPresent( user -> {
             user.setEnabled(false);
+            personRepository.save(user);
+            }
+        );
+    }
+
+    public void enableUser(int id) {
+        Optional<Person> person= personRepository.findById(id);
+
+        person.ifPresent( user -> {
+            user.setEnabled(true);
             personRepository.save(user);
             }
         );
