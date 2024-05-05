@@ -34,6 +34,7 @@ public class JwtService {
 
     public String getToken(Person user) {
         Map<String, Object> claims  = new HashMap<>();
+        claims.put("id", user.getId());
         claims.put("user", user.getNombre());
         claims.put("email", user.getEmail());
         System.out.println("Inicié a las " + GregorianCalendar.getInstance().getTime());

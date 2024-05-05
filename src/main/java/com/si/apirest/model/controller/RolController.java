@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.si.apirest.model.dto.RolDTO;
 import com.si.apirest.model.entity.RoleEntity;
 import com.si.apirest.model.service.RolService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,7 +28,7 @@ public class RolController {
     private final RolService rolService;
 
     @PostMapping("/save")
-    public RoleEntity crearRol(@RequestBody RoleEntity roleEntity) {
+    public RoleEntity crearRol(@RequestBody @Valid RolDTO roleEntity) {
         return rolService.crearRol(roleEntity);
     }
 

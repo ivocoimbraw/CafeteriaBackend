@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.si.apirest.model.dto.RolDTO;
 import com.si.apirest.model.entity.RoleEntity;
 import com.si.apirest.model.repository.RolRepository;
 
@@ -22,8 +23,8 @@ public class RolService {
     @Autowired
     private final ModelMapper modelMapper;
 
-    public RoleEntity crearRol(RoleEntity roleEntity) {
-        return rolRepository.save(roleEntity);
+    public RoleEntity crearRol(RolDTO roleEntity) {
+        return rolRepository.save(modelMapper.map(roleEntity, RoleEntity.class));
     }
 
     public RoleEntity updateRol(int id, RoleEntity roleEntity) {
