@@ -31,6 +31,7 @@ public class PersonService {
     }
 
     public void updatePerson(PersonDTOupdate person, int id) {
+        System.out.println(person);
         Optional<Person> optionalPerson = personRepository.findById(id);
         if (optionalPerson.isPresent()) {
             Person updatedUser = optionalPerson.get();
