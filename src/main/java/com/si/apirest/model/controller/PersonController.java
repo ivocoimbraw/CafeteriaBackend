@@ -41,4 +41,9 @@ public class PersonController {
         personService.enableUser(id);
     }
 
+    @GetMapping("/{username}")
+    public PersonDTO getUser(@PathVariable String username) {
+        return personService.getUser(username);
+    }
+
 }

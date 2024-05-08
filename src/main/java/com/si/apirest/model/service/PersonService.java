@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.dto.PersonDTO;
@@ -73,6 +74,12 @@ public class PersonService {
             personRepository.save(user);
             }
         );
+    }
+
+    public PersonDTO getUser(String username) {
+        Person person = personRepository.findByUsuario(username)
+        .orElseThrow( () -> new UsernameNotFoundException("PersonGet: Usuario no encontrado"));
+        return modelMapper.map(person, PersonDTO.class);
     }
 
 }
