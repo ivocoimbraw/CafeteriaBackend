@@ -38,7 +38,7 @@ public class PersonController {
 
     @PutMapping("/enable/{id}")
     public void enableUser(@PathVariable int id) {
-        personService.unableUser(id);
+        personService.enableUser(id);
     }
 
 }
