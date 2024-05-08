@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.dto.RolDTO;
 import com.si.apirest.model.entity.RoleEntity;
+import com.si.apirest.model.entity.RolePermissionEntity;
+import com.si.apirest.model.repository.PermissionRepository;
 import com.si.apirest.model.repository.RolRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -23,8 +25,19 @@ public class RolService {
     @Autowired
     private final ModelMapper modelMapper;
 
+    @Autowired
+    private final RolePermissionRepository rolePermissionRepository;
+
+    @Autowired
+    private final PermissionRepository permissionRepository;
+
     public RoleEntity crearRol(RolDTO roleEntity) {
-        return rolRepository.save(modelMapper.map(roleEntity, RoleEntity.class));
+        RoleEntity rol= rolRepository.save(modelMapper.map(roleEntity, RoleEntity.class));
+        rolePermissionRepository.save(RolePermissionEntity.builder()
+        .rol(rol)
+        .permiso(permissionRepository.findByNombre("VER_HOME")).build()
+        );
+        return rol;
     }
 
     public RoleEntity updateRol(int id, RoleEntity roleEntity) {

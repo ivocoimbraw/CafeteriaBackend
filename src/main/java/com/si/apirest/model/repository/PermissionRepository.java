@@ -7,5 +7,5 @@ import com.si.apirest.model.entity.PermissionEntity;
 
 @Repository
 public interface PermissionRepository extends JpaRepository<PermissionEntity,Integer>{
-    
+    PermissionEntity findByNombre(String nombre);
 }

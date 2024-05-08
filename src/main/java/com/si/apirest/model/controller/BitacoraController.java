@@ -22,7 +22,7 @@ public class BitacoraController {
     private final BitacoraService bitacoraService;
 
     @PostMapping
-    public Bitacora saveBitacora(@RequestBody BitacoraDTO bitacoraEntity){
+    public BitacoraDTO saveBitacora(@RequestBody BitacoraDTO bitacoraEntity){
         return bitacoraService.saveBitacora(bitacoraEntity);
     }
 

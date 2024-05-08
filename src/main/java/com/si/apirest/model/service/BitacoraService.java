@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.dto.BitacoraDTO;
 import com.si.apirest.model.entity.Bitacora;
+import com.si.apirest.model.entity.Person;
 import com.si.apirest.model.repository.BitacoraRepository;
+import com.si.apirest.model.repository.PersonRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,10 +25,18 @@ public class BitacoraService {
 
     @Autowired
     private final ModelMapper modelMapper;
+    
+    @Autowired
+    private final PersonRepository personRepository;
 
-    public Bitacora saveBitacora(BitacoraDTO bitacoraEntity){
-        Bitacora bitacora = modelMapper.map(bitacoraEntity, Bitacora.class);
-        return bitacoraRepository.save(bitacora);
+    public BitacoraDTO saveBitacora(BitacoraDTO bitacoraEntity){
+        Person user = personRepository.findById(bitacoraEntity.getUser().getId()).orElse(null);
+        return modelMapper.map(bitacoraRepository.save(Bitacora.builder()
+        .accion(bitacoraEntity.getAccion())
+        .fecha(bitacoraEntity.getFecha())
+        .user(user)
+        .build()), 
+        BitacoraDTO.class);
     }
 
     public List<BitacoraDTO> findAllBitacora(){
