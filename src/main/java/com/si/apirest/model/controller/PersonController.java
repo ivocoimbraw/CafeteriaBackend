@@ -12,6 +12,7 @@ import com.si.apirest.model.dto.PersonDTO;
 import com.si.apirest.model.dto.PersonDTOupdate;
 import com.si.apirest.model.service.PersonService;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,7 +28,7 @@ public class PersonController {
     }
 
     @PutMapping("/update/{id}")
-    public void testing(PersonDTOupdate person, int id) {
+    public void updatePerson(@RequestBody PersonDTOupdate person, @PathVariable int id) {
         personService.updatePerson(person, id);
     }
 
