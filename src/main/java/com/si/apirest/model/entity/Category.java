@@ -22,19 +22,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Category {
-    
-    @ManyToOne
-    @JsonIgnore
-    private Departament departament;
-
+        
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
+    
     @NotBlank(message = "Atributo nombre requerido.")
     private String nombre;
-
+    
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Producto> producto;
-
+    
+    @ManyToOne
+    private Departament departament;
 }

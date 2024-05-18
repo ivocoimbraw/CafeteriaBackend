@@ -2,7 +2,6 @@ package com.si.apirest.model.entity;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +35,5 @@ public class Producto {
     private String imagen;
 
     @ManyToOne
-    @JsonIgnore
     private Category category;
 }

@@ -1,6 +1,7 @@
 package com.si.apirest.model.entity;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Departament {
     @OneToMany(mappedBy = "departament")
+    @JsonIgnore
     private List<Category> category;
 
     @Id

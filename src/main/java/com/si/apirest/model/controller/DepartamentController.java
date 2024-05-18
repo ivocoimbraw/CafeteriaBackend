@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.si.apirest.model.dto.DepartmentDTO;
 import com.si.apirest.model.entity.Departament;
 import com.si.apirest.model.exceptions.OkResponse;
 import com.si.apirest.model.service.DepartmentService;
@@ -62,6 +63,11 @@ public class DepartamentController {
     @GetMapping
     public List<Departament> getAllDepartament() {
         return departamentService.getAllDepartament();
+    }
+
+    @GetMapping("/dtos")
+    public List<DepartmentDTO> getAllDepartamentCat() {
+        return departamentService.getAllDepartamentCat();
     }
 
 }

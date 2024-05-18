@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.si.apirest.model.dto.ProductoDTO;
 import com.si.apirest.model.entity.Producto;
 import com.si.apirest.model.exceptions.OkResponse;
 import com.si.apirest.model.service.ProductoService;
@@ -51,7 +52,7 @@ public class ProductoController {
     }
 
     @GetMapping("/all")
-    public List<Producto> getAllProducto(){
+    public List<ProductoDTO> getAllProducto(){
         return productoService.getAllProducto();
     }   
 
