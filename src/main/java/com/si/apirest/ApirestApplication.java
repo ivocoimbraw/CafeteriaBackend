@@ -1,8 +1,10 @@
 package com.si.apirest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -13,12 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.si.apirest.model.entity.PermissionEntity;
 import com.si.apirest.model.entity.Person;
 import com.si.apirest.model.entity.RoleEntity;
-import com.si.apirest.model.entity.RolePermissionEntity;
 import com.si.apirest.model.enums.Permission;
 import com.si.apirest.model.enums.Role;
 import com.si.apirest.model.repository.PermissionRepository;
 import com.si.apirest.model.repository.PersonRepository;
-import com.si.apirest.model.repository.RolPermissionRepository;
 import com.si.apirest.model.repository.RolRepository;
 
 @SpringBootApplication
@@ -30,36 +30,39 @@ public class ApirestApplication {
 		//Tomar todos los beans del contexto de spring
 		PermissionRepository permissionRepository = context.getBean(PermissionRepository.class);
 		RolRepository rolRepository = context.getBean(RolRepository.class); 
-		RolPermissionRepository rolPermissionRepository = context.getBean(RolPermissionRepository.class);
 		PersonRepository personRepository = context.getBean(PersonRepository.class);
 		PasswordEncoder passwordEncoder = context.getBean(PasswordEncoder.class);
 		ModelMapper modelMapper = context.getBean(ModelMapper.class);
 
 		//si no existen permisos y roles los crea
 		if (permissionRepository.count()==0 && rolRepository.count() == 0){
-			List<PermissionEntity> permissionEntities = new ArrayList<PermissionEntity>();
+			Set<PermissionEntity> permissionEntities = new HashSet<PermissionEntity>();
 			List<PermissionEntity> permissionEntitiesSaved = new ArrayList<PermissionEntity>();
 			//Guarda todos los permisos del enum Permission
 			for (String nombre : Permission.getAllPermissionNames()) {
 				permissionEntities.add(PermissionEntity.builder().nombre(nombre).build());
 			}
 			permissionEntitiesSaved = permissionRepository.saveAllAndFlush(permissionEntities);
-			
+
 			//Se guarda el Rol ADMIN
-			RoleEntity rolSaved = rolRepository.save(RoleEntity.builder().name(Role.ADMIN.toString()).build());
+			RoleEntity rolSaved = rolRepository.save(RoleEntity.builder()
+															.name(Role.ADMIN.toString())
+															.permissions(permissionEntitiesSaved)
+															.build());
 			//Se guarda el Rol USER
-			RoleEntity rolUser = rolRepository.save(RoleEntity.builder().name(Role.USER.toString()).build());
-			rolPermissionRepository.save(RolePermissionEntity.builder()
-				.permiso(permissionEntitiesSaved.get(permissionEntities.size()-1))
-				.rol(rolUser).build());
-			
-			
-			//se asignan todos los permisos existentes a Rol ADMIN
-			for (PermissionEntity permissionEntity : permissionEntitiesSaved) {
-				rolPermissionRepository.save(RolePermissionEntity.builder()
-				.permiso(permissionEntity)
-				.rol(rolSaved).build());
+			List<PermissionEntity> permissionUser = new ArrayList<PermissionEntity>();
+			for (PermissionEntity permission : permissionEntitiesSaved){
+				if(permission.getNombre().equals(Permission.VER_HOME.toString()))
+					permissionUser.add(permission);
 			}
+			System.out.println("Llegó aquí 1");
+			rolRepository.save(RoleEntity.builder()
+										.name(Role.USER.toString())
+										.permissions(permissionUser)
+										.build());
+			System.out.println("Llegó aquí 2");
+			
+			
 			//Crea el usuario Admin
 			createUserAdmin(personRepository, rolSaved,passwordEncoder, modelMapper);
 		}

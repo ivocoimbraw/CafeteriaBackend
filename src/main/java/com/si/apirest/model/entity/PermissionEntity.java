@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @AllArgsConstructor
@@ -19,4 +23,9 @@ public class PermissionEntity {
     private Integer id;
     @Column(length = 50)
     private String nombre;
+
+    @ManyToMany(mappedBy = "permissions",  fetch = FetchType.LAZY)
+    @Builder.Default
+    @JsonIgnore
+    private Set<RoleEntity> roles = new HashSet<>();
 }

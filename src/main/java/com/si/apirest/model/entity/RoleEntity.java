@@ -1,5 +1,7 @@
 package com.si.apirest.model.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,4 +22,11 @@ public class RoleEntity {
     @Column(length = 50)
     private String name;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rol_permiso",
+        joinColumns = @JoinColumn(name = "rol_id"),
+        inverseJoinColumns =@JoinColumn(name = "permiso_id")
+    )
+    private List<PermissionEntity> permissions;
 }

@@ -1,15 +1,18 @@
 package com.si.apirest.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.si.apirest.model.dto.PermissionDTO;
+import com.si.apirest.model.dto.RolPerDTO;
 import com.si.apirest.model.entity.PermissionEntity;
 import com.si.apirest.model.entity.Person;
+import com.si.apirest.model.entity.RoleEntity;
 import com.si.apirest.model.repository.PermissionRepository;
 import com.si.apirest.model.repository.PersonRepository;
 
@@ -29,8 +32,6 @@ public class PermissionService {
     @Autowired
     private final PersonRepository personRepository;
 
-    @Autowired
-    private final RolePermissionRepository rolePermissionRepository;
 
     public PermissionEntity crearPermiso(PermissionEntity permissionEntity) {
         return permissionRepository.save(permissionEntity);
@@ -56,19 +57,26 @@ public class PermissionService {
 
     
     public List<String> userPermissionList(String username) {
-        List<String> permissionList = new ArrayList<>();
 
-        int idRol = personRepository.findByUsuario(username).get().getRole().getId();
-        permissionList=rolePermissionRepository.getPermissionsByRoleId(idRol);
+        RoleEntity rol = personRepository.findByUsuario(username).get().getRole();
+
+        RolPerDTO rolPerDTO = modelMapper.map(rol, RolPerDTO.class);
+
+        List<String> permissionList = rolPerDTO.getPermissions().stream()
+                                                                .map(PermissionDTO::getNombre)
+                                                                .collect(Collectors.toList());
 
         return permissionList;
     }
 
     public List<String> userPermissionList(Person user) {
-        List<String> permissionList = new ArrayList<>();
-
-        int idRol = user.getRole().getId();
-        permissionList=rolePermissionRepository.getPermissionsByRoleId(idRol);
+        RoleEntity rol = user.getRole();
+        
+        RolPerDTO rolPerDTO = modelMapper.map(rol, RolPerDTO.class);
+        
+        List<String> permissionList = rolPerDTO.getPermissions().stream()
+                                                .map(PermissionDTO::getNombre)
+                                                .collect(Collectors.toList());
 
         return permissionList;
     }

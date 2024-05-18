@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.si.apirest.model.dto.RolDTO;
+import com.si.apirest.model.dto.RolGetDTO;
 import com.si.apirest.model.entity.RoleEntity;
 import com.si.apirest.model.service.RolService;
 
@@ -51,4 +52,10 @@ public class RolController {
     public void deleteRol(@PathVariable int id)  {
         rolService.deleteRol(id);
     }
+
+    @GetMapping("/dtos")
+    public List<RolGetDTO> getAllRolGetDTOs() {
+        return rolService.getAllRolDTOs();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.si.apirest.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -7,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.dto.RolDTO;
+import com.si.apirest.model.dto.RolGetDTO;
 import com.si.apirest.model.entity.RoleEntity;
-import com.si.apirest.model.entity.RolePermissionEntity;
-import com.si.apirest.model.repository.PermissionRepository;
 import com.si.apirest.model.repository.RolRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,25 +26,23 @@ public class RolService {
     @Autowired
     private final ModelMapper modelMapper;
 
-    @Autowired
-    private final RolePermissionRepository rolePermissionRepository;
-
-    @Autowired
-    private final PermissionRepository permissionRepository;
-
     public RoleEntity crearRol(RolDTO roleEntity) {
         RoleEntity rol= rolRepository.save(modelMapper.map(roleEntity, RoleEntity.class));
-        rolePermissionRepository.save(RolePermissionEntity.builder()
-        .rol(rol)
-        .permiso(permissionRepository.findByNombre("VER_HOME")).build()
-        );
         return rol;
     }
 
+    @Transactional
     public RoleEntity updateRol(int id, RoleEntity roleEntity) {
+        System.out.println(roleEntity.getPermissions());
         return rolRepository.findById(id).map(rol -> {
-            modelMapper.map(roleEntity, rol);
-            return rol;
+            if(roleEntity.getPermissions()!=null)
+                rol.setPermissions(null);
+            else{
+                if (roleEntity.getName()!= null && !roleEntity.getName().isEmpty())
+                    rol.setName(roleEntity.getName());
+            }
+            modelMapper.map(rol, roleEntity);
+            return rolRepository.save(roleEntity);
         }).orElseThrow(() -> new EntityNotFoundException("Rol not found with id: "+id));
     }
 
@@ -58,6 +57,15 @@ public class RolService {
 
     public void deleteRol(int id) {
         rolRepository.deleteById(id);
+    }
+
+    public List<RolGetDTO> getAllRolDTOs() {
+        List<RoleEntity> roleEntities = rolRepository.findAll();
+        List<RolGetDTO> roles = new ArrayList<>();
+        for (RoleEntity roleEntity : roleEntities) {
+            roles.add(modelMapper.map(roleEntity, RolGetDTO.class));   
+        }
+        return roles;
     }
 
 }
