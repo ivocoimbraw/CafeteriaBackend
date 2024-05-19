@@ -11,4 +11,5 @@ public class BitacoraDTO {
     private GregorianCalendar fecha;
     private String accion;
     private PersonDTO user;
+    private String ip;
 }

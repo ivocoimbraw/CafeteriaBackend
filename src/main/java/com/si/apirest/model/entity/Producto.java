@@ -36,4 +36,6 @@ public class Producto {
 
     @ManyToOne
     private Category category;
+    @ManyToOne
+    private Descuento descuento;
 }

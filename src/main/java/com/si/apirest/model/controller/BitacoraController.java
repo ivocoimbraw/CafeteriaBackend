@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.si.apirest.model.dto.BitacoraDTO;
-import com.si.apirest.model.entity.Bitacora;
 import com.si.apirest.model.service.BitacoraService;
 
 import lombok.RequiredArgsConstructor;
