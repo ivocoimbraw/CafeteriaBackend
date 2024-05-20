@@ -35,6 +35,7 @@ public class BitacoraService {
         .accion(bitacoraEntity.getAccion())
         .fecha(bitacoraEntity.getFecha())
         .user(user)
+        .ip(bitacoraEntity.getIp())
         .build()), 
         BitacoraDTO.class);
     }
