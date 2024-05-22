@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.si.apirest.model.dto.PersonDTO;
 import com.si.apirest.model.dto.PersonDTOupdate;
+import com.si.apirest.model.dto.RolGetDTO;
 import com.si.apirest.model.service.PersonService;
 
 import lombok.RequiredArgsConstructor;
@@ -47,4 +48,8 @@ public class PersonController {
         return personService.getUser(username);
     }
 
+    @PutMapping("/rol/{id}")
+    public void setRolUser(@RequestBody RolGetDTO rol, @PathVariable int id) {
+        personService.setRolUser(id, rol);
+    }
 }

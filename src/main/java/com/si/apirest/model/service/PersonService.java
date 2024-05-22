@@ -11,9 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.dto.PersonDTO;
 import com.si.apirest.model.dto.PersonDTOupdate;
+import com.si.apirest.model.dto.RolGetDTO;
 import com.si.apirest.model.entity.Person;
+import com.si.apirest.model.entity.RoleEntity;
+import com.si.apirest.model.exceptions.NotFoundException;
 import com.si.apirest.model.repository.PersonRepository;
+import com.si.apirest.model.repository.RolRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,6 +27,9 @@ public class PersonService {
 
     @Autowired
     private final PersonRepository personRepository;
+
+    @Autowired
+    private final RolRepository rolRepository;
 
     @Autowired
     private final ModelMapper modelMapper;
@@ -81,6 +89,18 @@ public class PersonService {
         Person person = personRepository.findByUsuario(username)
         .orElseThrow( () -> new UsernameNotFoundException("PersonGet: Usuario no encontrado"));
         return modelMapper.map(person, PersonDTO.class);
+    }
+
+    @Transactional
+    public void setRolUser(int idUser, RolGetDTO rolDto) {
+        Optional<Person> person = personRepository.findById(idUser);
+        Optional<RoleEntity> rol = rolRepository.findById(rolDto.getId());
+        if (person.isPresent() && rol.isPresent()){
+            person.get().setRole(rol.get());
+        }else{
+            throw new NotFoundException("No se ha encontrado rol o usuario");
+        }
+
     }
 
 }
