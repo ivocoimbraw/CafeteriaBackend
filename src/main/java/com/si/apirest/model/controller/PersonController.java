@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.si.apirest.model.dto.PersonDTO;
 import com.si.apirest.model.dto.PersonDTOupdate;
+import com.si.apirest.model.dto.PersonGetDTO;
 import com.si.apirest.model.dto.RolGetDTO;
 import com.si.apirest.model.service.PersonService;
 
@@ -26,6 +27,11 @@ public class PersonController {
     @GetMapping("/get-all")
     public List<PersonDTO> getAllPerson() {
         return personService.getAllPerson();
+    }
+
+    @GetMapping
+    public List<PersonGetDTO> getAllPersonTable() {
+        return personService.getAllPersonTable();
     }
 
     @PutMapping("/update/{id}")

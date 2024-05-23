@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.si.apirest.model.dto.PersonDTO;
 import com.si.apirest.model.dto.PersonDTOupdate;
+import com.si.apirest.model.dto.PersonGetDTO;
 import com.si.apirest.model.dto.RolGetDTO;
 import com.si.apirest.model.entity.Person;
 import com.si.apirest.model.entity.RoleEntity;
@@ -101,6 +102,15 @@ public class PersonService {
             throw new NotFoundException("No se ha encontrado rol o usuario");
         }
 
+    }
+
+    public List<PersonGetDTO> getAllPersonTable() {
+        List<Person> personList = personRepository.findAll(); 
+        List<PersonGetDTO> personDTOs = new ArrayList<>();
+        for (Person userPerson : personList) {
+            personDTOs.add(modelMapper.map(userPerson, PersonGetDTO.class));
+        }
+        return personDTOs;
     }
 
 }
