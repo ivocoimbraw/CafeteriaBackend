@@ -15,6 +15,7 @@ import com.si.apirest.model.entity.Person;
 import com.si.apirest.model.entity.RoleEntity;
 import com.si.apirest.model.repository.PermissionRepository;
 import com.si.apirest.model.repository.PersonRepository;
+import com.si.apirest.model.repository.RolRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,9 @@ public class PermissionService {
 
     @Autowired
     private final PersonRepository personRepository;
+
+    @Autowired
+    private final RolRepository rolRepository;
 
 
     public PermissionEntity crearPermiso(PermissionEntity permissionEntity) {
@@ -58,7 +62,8 @@ public class PermissionService {
     
     public List<String> userPermissionList(String username) {
 
-        RoleEntity rol = personRepository.findByUsuario(username).get().getRole();
+        int idRol = personRepository.findByUsuario(username).get().getRole().getId();
+        RoleEntity rol = rolRepository.findById(idRol).get();
 
         RolPerDTO rolPerDTO = modelMapper.map(rol, RolPerDTO.class);
 
