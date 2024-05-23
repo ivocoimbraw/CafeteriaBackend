@@ -36,7 +36,7 @@ public class JwtService {
         claims.put("id", user.getId());
         claims.put("user", user.getNombre());
         claims.put("email", user.getEmail());
-        List<String> permisos = permissionService.userPermissionList(user);
+        List<String> permisos = permissionService.userPermissionList(user.getUsername());
         claims.put("Permisos", permisos);
         return getToken(claims,user);
     }
