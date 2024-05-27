@@ -1,12 +1,15 @@
 package com.si.apirest.model.entity;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -17,8 +20,10 @@ public class NotaIngreso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String descripcion;
-    private GregorianCalendar fecha;
+    private LocalDate fecha;
 
     @ManyToOne
     private Proveedor proveedor;
+    @OneToMany(mappedBy = "notaIngreso", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalleIngreso> detalleIngreso;
 }
