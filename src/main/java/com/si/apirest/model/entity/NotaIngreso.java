@@ -1,6 +1,6 @@
 package com.si.apirest.model.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -20,7 +20,7 @@ public class NotaIngreso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String descripcion;
-    private LocalDate fecha;
+    private LocalDateTime  fecha;
 
     @ManyToOne
     private Proveedor proveedor;
