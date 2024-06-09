@@ -34,7 +34,8 @@ public class Producto {
     @Column(precision = 10, scale = 2)
     private BigDecimal precio;
     
-    private String imagen;
+    @ManyToOne
+    private Imagen imagen;
 
     @ManyToOne
     private Category category;
