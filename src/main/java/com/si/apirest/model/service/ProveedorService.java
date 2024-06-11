@@ -33,4 +33,8 @@ public class ProveedorService {
         proveedorRepository.deleteById(id);
     }
 
+    public Proveedor updateProveedor(Proveedor proveedor) {
+        return proveedorRepository.save((proveedor));
+    }
+
 }
