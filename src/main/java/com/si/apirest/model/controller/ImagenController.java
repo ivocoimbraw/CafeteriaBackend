@@ -42,7 +42,7 @@ public class ImagenController {
         return imagenService.upadateImagen(imagen);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteImagen(@PathVariable int id) {
         imagenService.deleteImagen(id);
     }
