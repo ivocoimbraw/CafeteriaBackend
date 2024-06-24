@@ -22,7 +22,10 @@ public enum Permission {
     VER_ADMINISTRAR_VENTA,
     VER_VENTA_DE_PRODUCTO,
     VER_DASHBOARD,
-    VER_HOME;
+    VER_PROVEEDORES,
+    VER_IMAGEN,
+    VER_NOTA_EGRESO,
+    VER_PERFIL;
 
     static {
         permissionListEnums = Arrays.stream(values())
