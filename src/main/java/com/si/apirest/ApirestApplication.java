@@ -52,7 +52,7 @@ public class ApirestApplication {
 			//Se guarda el Rol USER
 			List<PermissionEntity> permissionUser = new ArrayList<PermissionEntity>();
 			for (PermissionEntity permission : permissionEntitiesSaved){
-				if(permission.getNombre().equals(Permission.VER_HOME.toString()))
+				if(permission.getNombre().equals(Permission.VER_PERFIL.toString()))
 					permissionUser.add(permission);
 			}
 			System.out.println("Llegó aquí 1");
