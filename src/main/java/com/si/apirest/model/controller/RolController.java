@@ -38,6 +38,11 @@ public class RolController {
         return rolService.updateRol(id, roleEntity);
     }   
 
+    @PutMapping("/name/{id}")
+    public RoleEntity updateRolName(@PathVariable int id, @RequestBody RoleEntity roleEntity) {
+        return rolService.updateRol(id, roleEntity);
+    }   
+
     @GetMapping("/{id}")
     public RoleEntity getRol(@PathVariable int id) {
         return rolService.getRol(id);

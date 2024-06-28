@@ -46,6 +46,14 @@ public class RolService {
         }).orElseThrow(() -> new EntityNotFoundException("Rol not found with id: "+id));
     }
 
+    public RoleEntity updateRolName(int id, RoleEntity roleEntity) {
+        return rolRepository.findById(id).map(rol -> {
+            if (roleEntity.getName()!= null && !roleEntity.getName().isEmpty())
+                rol.setName(roleEntity.getName());
+            return rolRepository.save(rol);
+        }).orElseThrow(() -> new EntityNotFoundException("Rol not found with id: "+id));
+    }
+
     public RoleEntity getRol(int id){
         return rolRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Rol not found with id: "+id));
